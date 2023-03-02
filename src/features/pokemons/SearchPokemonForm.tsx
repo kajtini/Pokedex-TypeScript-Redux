@@ -8,7 +8,6 @@ import { useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
 import { fetchPokemon, filterPokemon } from "./pokemonsSlice";
 import HomeIcon from "@mui/icons-material/Home";
-import Home from "@mui/icons-material/Home";
 import { pageSelected } from "../pagination/paginationSlice";
 
 function SearchPokemonForm() {

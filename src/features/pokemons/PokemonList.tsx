@@ -27,7 +27,7 @@ function PokemonList() {
 
   useEffect(() => {
     if (pokemonStatus === "idle") {
-      dispatch(fetchPokemon(currentPage));
+      dispatch(fetchPokemon(1));
     }
   }, [pokemonStatus, dispatch]);
 
@@ -39,7 +39,15 @@ function PokemonList() {
 
   if (pokemonStatus === "loading") {
     content = (
-      <Box sx={{ display: "block", marginInline: "auto" }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          marginInline: "auto",
+        }}
+      >
         <ClipLoader
           color="white"
           loading={true}
@@ -53,7 +61,12 @@ function PokemonList() {
     content = (
       <>
         <SearchPokemonForm />
-        <Grid container spacing={3}>
+        <Grid
+          container
+          spacing={3}
+          justifyContent="flex-start"
+          alignItems="stretch"
+        >
           {pokemon.length > 1 ? (
             <>
               {pokemon.map((pokemon) => (

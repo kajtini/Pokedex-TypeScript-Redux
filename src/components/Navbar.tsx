@@ -6,31 +6,44 @@ import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { logout, selectUser } from "../features/user/userSlice";
+import Stack from "@mui/material/Stack";
+import { signOut } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 function Navbar() {
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+
+  const handleSignOut = async () => {
+    dispatch(logout());
+
+    signOut(auth);
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Link
-            style={{ all: "unset", flexGrow: 1, cursor: "pointer" }}
-            to="/pokemonList"
-          >
+          <Link style={{ all: "unset", flexGrow: 1, cursor: "pointer" }} to="/">
             <Typography variant="h6" noWrap component="div">
               Pokedex
             </Typography>
           </Link>
 
-          <Button variant="outlined">Sign In</Button>
+          {user ? (
+            <Stack direction="row" spacing={4} alignItems="center">
+              <Typography>{user.displayName}</Typography>
+              <Button variant="outlined" onClick={handleSignOut}>
+                Sign Out
+              </Button>
+            </Stack>
+          ) : (
+            <Link to="/signIn" style={{ all: "unset" }}>
+              <Button variant="outlined">Sign In</Button>
+            </Link>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

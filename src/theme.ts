@@ -14,20 +14,20 @@ const theme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#abc7ff",
-      contrastText: "#002f66",
+      main: "#ffb1c6",
+      contrastText: "#650030",
     },
     secondary: {
-      main: "#bec6dc",
-      contrastText: "#283041",
+      main: "#e3bdc5",
+      contrastText: "#422930",
     },
 
     background: {
-      default: "#1a1b1f",
+      default: "#201a1b",
     },
 
     text: {
-      primary: "#e3e2e6",
+      primary: "#ece0e1",
     },
 
     error: {
