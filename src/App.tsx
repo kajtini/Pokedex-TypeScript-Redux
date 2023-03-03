@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import PokemonList from "./features/pokemons/PokemonList";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import SignInUser from "./features/user/SignInUser";
+import Auth from "./features/user/Auth";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { login, logout, selectUser } from "./features/user/userSlice";
 import { useEffect } from "react";
@@ -50,7 +50,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/pokemonList" element={<PokemonList />} />
-            <Route path="/signIn" element={<SignInUser />} />
+            <Route path="/signIn" element={<Auth />} />
           </Routes>
         </Box>
       </Container>

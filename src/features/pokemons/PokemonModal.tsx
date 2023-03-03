@@ -41,6 +41,10 @@ function PokemonModal({ pokemon }: PokemonModalProps) {
           <Stack spacing={3}>
             <PokemonBaseInfo pokemon={pokemon} />
           </Stack>
+
+          <Button sx={{ width: "100%" }} variant="outlined" size="large">
+            Add To Favourites!
+          </Button>
         </Box>
       </Modal>
     </>

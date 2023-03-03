@@ -1,9 +1,7 @@
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
@@ -26,7 +24,10 @@ function Navbar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar>
-          <Link style={{ all: "unset", flexGrow: 1, cursor: "pointer" }} to="/">
+          <Link
+            style={{ all: "unset", marginRight: "auto", cursor: "pointer" }}
+            to="/"
+          >
             <Typography variant="h6" noWrap component="div">
               Pokedex
             </Typography>
