@@ -6,9 +6,11 @@ import PokemonBaseInfo from "./PokemonBaseInfo";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { modalClosed, selectOpen } from "../modal/modalSlice";
 import { selectFavouritePokemons, selectUser } from "../user/userSlice";
-import AddToFavourites from "../user/AddToFavourites";
+import AddToFavourites from "./AddToFavourites";
 import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface PokemonModalProps {
   pokemon: Pokemon;
@@ -29,13 +31,8 @@ function PokemonModal({ pokemon }: PokemonModalProps) {
       (favPokemon) => favPokemon.id === pokemon.id
     );
 
-    console.log(`Found Pokemon ${foundPokemon?.name}`);
-
     foundPokemon ? setIsInFavourites(true) : setIsInFavourites(false);
   };
-
-  // console.log(pokemon.name);
-  // console.log(favouritePokemons);
 
   useEffect(() => {
     if (loadingSelectedPokemon === false) {
@@ -46,59 +43,73 @@ function PokemonModal({ pokemon }: PokemonModalProps) {
   const handleClose = () => dispatch(modalClosed());
 
   return (
-    <>
-      <Modal
-        open={isOpen}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+    <Modal
+      open={isOpen}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box
+        sx={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          bgcolor: "background.paper",
+          p: 3,
+          maxWidth: "375px",
+          width: "100%",
+          maxHeight: "100vh",
+          overflow: "scroll",
+        }}
       >
-        <Box
-          sx={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            bgcolor: "background.paper",
-            p: 3,
-            maxWidth: "375px",
-            width: "100%",
-          }}
-        >
-          {!loadingSelectedPokemon ? (
-            <>
-              <Stack spacing={3} mb={3}>
-                <PokemonBaseInfo pokemon={pokemon} />
-              </Stack>
+        {!loadingSelectedPokemon ? (
+          <>
+            <CloseIcon sx={{ cursor: "pointer" }} onClick={handleClose} />
 
-              {user && (
-                <AddToFavourites
-                  isInFavourites={isInFavourites}
-                  pokemon={pokemon}
-                />
-              )}
-            </>
-          ) : (
-            <Box
-              sx={{
-                marginInline: "auto",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <ClipLoader
-                color="white"
-                loading={true}
-                size={200}
-                aria-label="Loading Spinner"
-                data-testid="loader"
+            <Stack spacing={3} mb={3}>
+              <PokemonBaseInfo pokemon={pokemon} />
+            </Stack>
+
+            {pokemon.stats.map((stat, i) => (
+              <Stack
+                key={stat.stat.name}
+                direction="row"
+                justifyContent="space-between"
+                mb={i === pokemon.stats.length - 1 ? 0 : 3}
+              >
+                <Typography>{stat.stat.name}</Typography>
+                <Typography>{stat.base_stat}</Typography>
+              </Stack>
+            ))}
+
+            {user && (
+              <AddToFavourites
+                isInFavourites={isInFavourites}
+                pokemon={pokemon}
               />
-            </Box>
-          )}
-        </Box>
-      </Modal>
-    </>
+            )}
+          </>
+        ) : (
+          <Box
+            sx={{
+              marginInline: "auto",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <ClipLoader
+              color="white"
+              loading={true}
+              size={200}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </Box>
+        )}
+      </Box>
+    </Modal>
   );
 }
 

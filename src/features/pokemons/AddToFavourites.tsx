@@ -4,7 +4,7 @@ import {
   addFavouritePokemon,
   removeFavouritePokemon,
   selectUser,
-} from "./userSlice";
+} from "../user/userSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Pokemon } from "../../types/types";
 
@@ -40,7 +40,7 @@ function AddToFavourites({ isInFavourites, pokemon }: AddToFavouritesProps) {
 
   return (
     <Button
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", mt: 3 }}
       variant="outlined"
       size="large"
       onClick={

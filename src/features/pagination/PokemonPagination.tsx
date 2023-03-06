@@ -15,7 +15,10 @@ function PokemonPagination() {
       count={10}
       page={currentPage}
       onChange={handleChange}
-      sx={{ mt: 3, ml: { sm: "auto" } }}
+      sx={{
+        mt: 3,
+        ml: { sm: "auto" },
+      }}
       size="large"
       color="primary"
     />

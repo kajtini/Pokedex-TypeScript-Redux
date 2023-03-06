@@ -39,7 +39,7 @@ function Navbar() {
               style={{
                 all: "unset",
                 display: "block",
-                marginRight: "100px",
+                cursor: "pointer",
               }}
             >
               <Typography variant="body1" noWrap component="p">
