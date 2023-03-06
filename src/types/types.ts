@@ -1,5 +1,6 @@
 type Pokemon = {
   id: number;
+  dbId: string;
   name: string;
   height: number;
   weight: number;

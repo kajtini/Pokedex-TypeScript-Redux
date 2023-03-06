@@ -91,6 +91,8 @@ function PokemonList() {
     );
   }
 
+  console.log(selectedPokemon);
+
   return (
     <Box
       sx={{

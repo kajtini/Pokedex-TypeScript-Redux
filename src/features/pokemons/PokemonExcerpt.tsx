@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import { useAppDispatch } from "../../app/hooks";
-import { pokemonSelected } from "./pokemonsSlice";
+import { addSelectedPokemon, pokemonSelected } from "./pokemonsSlice";
 import PokemonBaseInfo from "./PokemonBaseInfo";
 import { modalOpened } from "../modal/modalSlice";
 
@@ -18,7 +18,8 @@ function PokemonExcerpt({ pokemon }: PokemonExcerptProps) {
   const dispatch = useAppDispatch();
 
   const handleLearnMore = () => {
-    dispatch(pokemonSelected(pokemon));
+    dispatch(addSelectedPokemon(pokemon.id));
+    // dispatch(pokemonSelected(pokemon));
     dispatch(modalOpened());
   };
 

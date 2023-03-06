@@ -23,19 +23,40 @@ function Navbar() {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar>
-          <Link
-            style={{ all: "unset", marginRight: "auto", cursor: "pointer" }}
-            to="/"
-          >
-            <Typography variant="h6" noWrap component="div">
-              Pokedex
-            </Typography>
-          </Link>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Stack direction="row" alignItems="center">
+            <Link
+              style={{ all: "unset", marginRight: "24px", cursor: "pointer" }}
+              to="/"
+            >
+              <Typography variant="h6" noWrap component="p">
+                Pokedex
+              </Typography>
+            </Link>
+
+            <Link
+              to="/favourites"
+              style={{
+                all: "unset",
+                display: "block",
+                marginRight: "100px",
+              }}
+            >
+              <Typography variant="body1" noWrap component="p">
+                Favourites
+              </Typography>
+            </Link>
+          </Stack>
 
           {user ? (
-            <Stack direction="row" spacing={4} alignItems="center">
-              <Typography>{user.displayName}</Typography>
+            <Stack
+              direction="row"
+              spacing={{ xs: 0, sm: 4 }}
+              alignItems="center"
+            >
+              <Typography sx={{ display: { xs: "none", sm: "block" } }}>
+                {user.displayName}
+              </Typography>
               <Button variant="outlined" onClick={handleSignOut}>
                 Sign Out
               </Button>

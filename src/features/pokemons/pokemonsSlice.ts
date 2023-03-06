@@ -34,16 +34,29 @@ export const filterPokemon = createAsyncThunk(
   }
 );
 
+export const addSelectedPokemon = createAsyncThunk(
+  "pokemons/addSelectedPokemon",
+  async (pokemonId: number) => {
+    const selectedPokemon = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+    );
+
+    return selectedPokemon.data;
+  }
+);
+
 interface PokemonState {
   pokemons: Array<Pokemon>;
   selectedPokemon: Pokemon | null;
   status: "idle" | "loading" | "succedded" | "failed";
+  loadingSelectedPokemon: boolean;
   error: string | null;
 }
 
 const initialState: PokemonState = {
   pokemons: [],
   selectedPokemon: null,
+  loadingSelectedPokemon: false,
   status: "idle",
   error: null,
 };
@@ -71,7 +84,7 @@ const pokemonsSlice = createSlice({
         state.status = "succedded";
         state.pokemons = action.payload;
       })
-      .addCase(filterPokemon.rejected, (state, action) => {
+      .addCase(fetchPokemon.rejected, (state, action) => {
         state.status = "failed";
         if (action.error.message) {
           state.error = action.error.message;
@@ -84,8 +97,21 @@ const pokemonsSlice = createSlice({
         state.status = "succedded";
         state.pokemons = [action.payload];
       })
-      .addCase(fetchPokemon.rejected, (state, action) => {
+      .addCase(filterPokemon.rejected, (state, action) => {
         state.status = "failed";
+        if (action.error.message) {
+          state.error = action.error.message;
+        }
+      })
+      .addCase(addSelectedPokemon.pending, (state) => {
+        state.loadingSelectedPokemon = true;
+      })
+      .addCase(addSelectedPokemon.fulfilled, (state, action) => {
+        state.selectedPokemon = action.payload;
+        state.loadingSelectedPokemon = false;
+      })
+      .addCase(addSelectedPokemon.rejected, (state, action) => {
+        state.loadingSelectedPokemon = false;
         if (action.error.message) {
           state.error = action.error.message;
         }

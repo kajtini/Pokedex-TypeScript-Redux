@@ -6,10 +6,16 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Auth from "./features/user/Auth";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { login, logout, selectUser } from "./features/user/userSlice";
+import {
+  fetchFavouritePokemons,
+  login,
+  logout,
+  selectUser,
+} from "./features/user/userSlice";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase";
+import Favourites from "./pages/Favourites";
 
 function App() {
   const user = useAppSelector(selectUser);
@@ -27,6 +33,7 @@ function App() {
             })
           );
         }
+        dispatch(fetchFavouritePokemons(userAuth.uid));
       } else {
         dispatch(logout());
       }
@@ -34,12 +41,30 @@ function App() {
   }, []);
 
   return (
-    <>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Navbar />
-      <Container maxWidth="xl">
+      <Container
+        maxWidth="xl"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          flexGrow: 1,
+        }}
+      >
         <Box
           sx={{
-            minHeight: "100vh",
+            width: "100%",
+            flexGrow: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -51,10 +76,11 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/pokemonList" element={<PokemonList />} />
             <Route path="/signIn" element={<Auth />} />
+            <Route path="/favourites" element={<Favourites />} />
           </Routes>
         </Box>
       </Container>
-    </>
+    </Box>
   );
 }
 
