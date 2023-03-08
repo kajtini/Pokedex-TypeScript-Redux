@@ -67,8 +67,6 @@ const userSlice = createSlice({
       .addCase(addFavouritePokemon.fulfilled, (state, action) => {
         state.favouritePokemons.status = "succedded";
 
-        console.log(action.payload);
-
         if (action.payload) {
           console.log(action.payload);
           state.favouritePokemons.pokemons?.push(action.payload);
@@ -85,8 +83,6 @@ const userSlice = createSlice({
       })
       .addCase(removeFavouritePokemon.fulfilled, (state, action) => {
         state.favouritePokemons.status = "succedded";
-
-        console.log(action.payload);
 
         if (action.payload) {
           console.log(action.payload);
